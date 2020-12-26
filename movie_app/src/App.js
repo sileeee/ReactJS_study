@@ -1,17 +1,8 @@
 import React from 'react'
 
-function Food({name, picture}){ /* (props) 또는 props내부의 fav사용 가능 - ({fav})*/
-  // console.log(props);
-  return <div>
-    <h3> I like {name}</h3>
-    <img src = {picture}/>
-    </div>
-
-  // return <h3> I like {props.fav}</h3>
-}
 const foodILike = [
   {
-    id: 1,
+    id: 1, //(key관련 error 해결)id는 기본적으로 react내부에서 사용하기 위한 것임
     name: "Kimchi",
     image:
       "http://aeriskitchen.com/wp-content/uploads/2008/09/kimchi_bokkeumbap_02-.jpg"
@@ -41,7 +32,15 @@ const foodILike = [
       "http://cdn2.koreanbapsang.com/wp-content/uploads/2012/05/DSC_1238r-e1454170512295.jpg"
   }
 ];
+function Food({name, picture}){ /* (props) 또는 props내부의 fav사용 가능 - ({fav})*/
+  // console.log(props);
+  return <div>
+    <h3> I like {name}</h3>
+    <img src = {picture} alt={name}/>
+    </div>
 
+  // return <h3> I like {props.fav}</h3>
+}
 function App() {
   return (
     <div>
