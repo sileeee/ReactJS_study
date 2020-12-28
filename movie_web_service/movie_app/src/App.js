@@ -2,32 +2,17 @@ import React from "react";
 
 class App extends React.Component {
   state = {
-    count: 0
+    isLoading: true, //mount되자마자
+    movies: [] //movie state (미래에 쓰고자하는 state를 선언하는 것은 필수가 아님)
   };
-  add = () => {
-    this.setState(current => ({ count: current.count + 1 }));
-  };
-  minus = () => {
-    this.setState(current => ({ count: current.count - 1 }));
-  };
-  componentDidMount() {
-    console.log("Component rendered");
-  }
-  componentDidUpdate() {
-    console.log("I just updated");
-  }
-  componentWillUnmount() {
-    console.log("Goodbye, cruel world");
+  componentDidMount() { //여기서 data를 fetch함
+    setTimeout(() => { //delay function(java script)
+      this.setState({ isLoading: false }); 
+    }, 6000); //6초후 실행
   }
   render() {
-    console.log("I'm rendering");
-    return (
-      <div>
-        <h1>The number is: {this.state.count}</h1>
-        <button onClick={this.add}>Add</button>
-        <button onClick={this.minus}>Minus</button>
-      </div>
-    );
+    const { isLoading } = this.state; //es6
+    return <div>{isLoading ? "Loading..." : "We are ready"}</div>; //javascript 삼항연산자
   }
 }
 
