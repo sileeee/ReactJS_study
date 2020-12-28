@@ -1,71 +1,38 @@
 import React from 'react'
 import PropTypes from "prop-types"
 
-const foodILike = [
-  {
-    id: 1, //(key관련 error 해결)id는 기본적으로 react내부에서 사용하기 위한 것임
-    name: "Kimchi",
-    image:
-      "http://aeriskitchen.com/wp-content/uploads/2008/09/kimchi_bokkeumbap_02-.jpg",
-    rating : 5
-    },
-  {
-    id: 2,
-    name: "Samgyeopsal",
-    image:
-      "https://3.bp.blogspot.com/-hKwIBxIVcQw/WfsewX3fhJI/AAAAAAAAALk/yHxnxFXcfx4ZKSfHS_RQNKjw3bAC03AnACLcBGAs/s400/DSC07624.jpg",
-    rating : 4.9
-  },
-  {
-    id: 3,
-    name: "Bibimbap",
-    image:
-      "http://cdn-image.myrecipes.com/sites/default/files/styles/4_3_horizontal_-_1200x900/public/image/recipes/ck/12/03/bibimbop-ck-x.jpg?itok=RoXlp6Xb",
-    rating : 4.8
-  },
-  {
-    id: 4,
-    name: "Doncasu",
-    image:
-      "https://s3-media3.fl.yelpcdn.com/bphoto/7F9eTTQ_yxaWIRytAu5feA/ls.jpg",
-    rating : 5.5
-  },
-  {
-    id: 5,
-    name: "Kimbap",
-    image:
-      "http://cdn2.koreanbapsang.com/wp-content/uploads/2012/05/DSC_1238r-e1454170512295.jpg",
-    rating : 4.7
-  }
-];
-function Food({name, picture, rating}){ /* (props) 또는 props내부의 fav사용 가능 - ({fav})*/
-  // console.log(props);
-  return (<div>
-    <h3> I like {name}</h3>
-    <h4>{rating}/5.0</h4>
-    <img src = {picture} alt={name}/>
-    </div>
-  );
-  // return <h3> I like {props.fav}</h3>
-}
-Food.propTypes = { //required를 호출하는 방식으로 type과 required를 체크 가능
-  name: PropTypes.string.isRequired,
-  picture:PropTypes.string.isRequired,
-  rating:PropTypes.number.isRequired //isRequired는 number이 필수는 아니라는 의미(undefined일수도 있음)
-};
-// 다른 많은 propTypes가 존재함(react가 지원하는)
+// fuction component를 class component로 변경
+class App extends React.Component { //react는 모든 class component의 render method를 자동으로 실행함
+  state = {
+    count: 0 //바꿀 데이터를 state안에 넣음
+  };
 
-function App() {
-  return (
-    <div>
-      {foodILike.map(dish => (
-        <Food key={dish.id} 
-        name={dish.name} 
-        picture={dish.image} 
-        rating={dish.rating} />
-      ))}
-    </div>
-  );
+
+
+  //데이터 바꾸는 함수(javascript코드임 react(x))
+  add = () => {
+    this.setState(current => ({ count: current.count + 1 }));
+    //this.state.count = 1;처럼 쓰지 않는 이유(직접 state변경 x)
+    // -> 매번 state의 상태를 변경할 경우, react가 render function을 호출해서 바꿔주어야 함
+  };
+  minus = () => {
+    this.setState(current => ({ count: current.count - 1 }));
+  };
+  // 외부의 state에 의존하면 성능 문제로 나중에 문제 될 수 있기 때문에 this.setState({count: this.state.count -1});로 작성 안한 것임
+  // function방식을 통해 current로 현재 state를 가져옴
+
+
+  render() { //function이 아니므로 return 하지 않고 react component가 가진 render method를 가짐
+    return ( //screen에 표시
+      <div>
+        <h1>The number is: {this.state.count}</h1>
+        {/* onClick은 react에서 자동적으로 주어진 것 */}
+        <button onClick={this.add}>Add</button> 
+        <button onClick={this.minus}>Minus</button>
+        {/* add()나 minus()로 안 쓰고 add, minus로 작성하는 이유는 즉시 실행하는 것이 아니라 버튼이 클릭된 후에 실행하는 것이기 때문 */}
+      </div>
+    );
+  }
 }
 
 
