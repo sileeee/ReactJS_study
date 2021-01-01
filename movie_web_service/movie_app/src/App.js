@@ -1,20 +1,43 @@
 import React from "react";
 import axios from "axios";
+import Movie from "./Movie";
 
 class App extends React.Component {
   state = {
-    isLoading: true, //mount되자마자
-    movies: [] //movie state (미래에 쓰고자하는 state를 선언하는 것은 필수가 아님)
+    isLoading: true,
+    movies: [] 
   };
   getMovies = async () => {
-    const movies = await axios.get("https://yts-proxy.now.sh/list_movies.json");
+    const {
+      data: {
+        data: { movies }
+      }
+    } = await axios.get(
+      "https://yts-proxy.now.sh/list_movies.json?sort_by=rating"
+    );
+    this.setState({ movies, isLoading: false });
   };
   componentDidMount() { //여기서 data를 fetch함
     this.getMovies();
   }
   render() {
-    const { isLoading } = this.state; //es6
-    return <div>{isLoading ? "Loading..." : "We are ready"}</div>; //javascript 삼항연산자
+    const { isLoading, movies } = this.state;
+    return (
+      <div>
+        {isLoading
+          ? "Loading..."
+          : movies.map(movie => (
+              <Movie
+                key={movie.id}
+                id={movie.id}
+                year={movie.year}
+                title={movie.title}
+                summary={movie.summary}
+                poster={movie.medium_cover_image}
+              />
+              ))}
+              </div>
+    );
   }
 }
 
