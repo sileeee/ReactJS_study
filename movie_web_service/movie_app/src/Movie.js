@@ -8,7 +8,7 @@ function Movie({ year, title, summary, poster, genres }) {
         <div className="movie__data">
         <h3 className="movie__title">{title}</h3>
         <h5 className="movie__year">{year}</h5>
-        <ul className="genres">
+        <ul className="movie__genres">
           {genres.map((genre, index) => ( //map함수는 item, item number을 argument로 줌
             <li key={index} className="genres__genre">
               {genre}
