@@ -1,2 +1,0 @@
-(this.webpackJsonpmovie_app=this.webpackJsonpmovie_app||[]).push([[0],{9:function(e,n,t){"use strict";t.r(n);var s=t(1),o=(t(0),t(3));var p=function(){return Object(s.jsx)("span",{children:"something"})};t.n(o).a.render(Object(s.jsx)(p,{}),document.getElementById("root"))}},[[9,1,2]]]);
-//# sourceMappingURL=main.19238491.chunk.js.map
