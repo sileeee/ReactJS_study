@@ -1,11 +1,11 @@
-#### API Used
+#### - API Used
 ``
 https://yts-proxy.now.sh/list_movies.jso
 ``
 
-#### Deploying to Github Pages
+#### - Deploying to Github Pages
 
-#### run
+#### - How to run
 ```
 npm run deploy
 ```
